@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y ant git && \
 	apt-get auto-remove -y && \
 	apt-get auto-clean -y
 WORKDIR /mint2
-RUN mkdir custom/mint2 && mkdir WEB-INF/custom/mint2 && mkdir WEB-INF/deploy/mint2 %% mkdir WEB-INF/deploy/mint2@ddbkultur
+RUN mkdir custom/mint2 && mkdir WEB-INF/custom/mint2 && mkdir WEB-INF/deploy/mint2 && mkdir WEB-INF/deploy/mint2@ddbkultur
 COPY ddbkultur_deploy.xml WEB-INF/deploy/mint2@ddbkultur/deploy.xml
 COPY ddbkultur_hibernate.properties WEB-INF/deploy/mint2@ddbkultur/hibernate.properties
 RUN ant -Dappname=ROOT -Dcustom=mint2 -Ddeploy_target=mint2@ddbkultur -Ddeploy_local=true deploy

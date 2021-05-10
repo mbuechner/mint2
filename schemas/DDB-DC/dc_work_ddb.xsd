@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Mit XMLSpy v2009 sp1 (http://www.altova.com) von XMLSpy 2009 Professional Ed., Installed for 10 users (FIZ Karlsruhe) bearbeitet -->
+<xsd:schema xmlns:sdo="commonj.sdo/xml"
+	xmlns:udc="http://udc.arlanis.com/xml/628e2e47-7551-4b68-85ef-9a5a5754385b"
+	xmlns:udcMeta="http://arlanis.com/2008/udc/layout/metaInfo"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://udc.arlanis.com/xml/628e2e47-7551-4b68-85ef-9a5a5754385b"
+	elementFormDefault="unqualified">
+	<xsd:element name="item" type="udc:item"/>
+	<xsd:complexType name="item">
+		<xsd:sequence>
+			<xsd:element name="dc" type="udc:dc" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="partner_id" type="udc:string" form="qualified"/>
+		<xsd:attribute name="oaipmhurl" type="udc:string" form="qualified"/>
+		<xsd:attribute name="ingestevent" type="udc:string" form="qualified"/>
+	</xsd:complexType>
+	<xsd:complexType name="dc">
+		<xsd:sequence>
+			<xsd:element name="title" type="udc:title" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="creator" type="udc:creator" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="subject" type="udc:subject" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="description" type="udc:description" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="publisher" type="udc:publisher" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="contributor" type="udc:contributor" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="date" type="udc:date" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="type" type="udc:type" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="format" type="udc:format" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="identifier" type="udc:identifier" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="source" type="udc:source" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="language" type="udc:language" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="relation" type="udc:relation" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="coverage" type="udc:coverage" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="rights" type="udc:rights" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!-- this is no longer Dublin Core, but merged other schema like Europeana -->
+			<xsd:element name="accessRights" type="udc:accessRights" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xsd:element name="isShownBy" type="udc:isShownBy" form="qualified" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="title">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="string" final="restriction">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:complexType name="creator">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" type="xsd:anyURI" use="optional" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="subject">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" type="xsd:anyURI" use="optional" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="description">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="publisher">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" type="xsd:anyURI" use="optional" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="contributor">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" type="xsd:anyURI" use="optional" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="date">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="type">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" type="xsd:anyURI" use="optional" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="format">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="identifier">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="type" type="udc:typeList"/>
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="source">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+				<xsd:attribute name="resource" use="optional" form="qualified"/>
+				<xsd:attribute name="type" type="udc:typeList"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="language">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="relation">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="coverage">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="rights">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="accessRights">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="isShownBy">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="lang" type="udc:string" form="qualified"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="typeList">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="bibliographicCitation"/>
+			<xsd:enumeration value="binary"/>
+			<xsd:enumeration value="ID"/>
+			<xsd:enumeration value="ISBN"/>
+			<xsd:enumeration value="ISSN"/>
+			<xsd:enumeration value="URL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

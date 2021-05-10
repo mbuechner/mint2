@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+    targetNamespace="http://www.bl.uk/namespaces/oai_dcq/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:annotation>
+        <xs:documentation xml:lang="en"> Qualified Dublin Core (DCQ) application schema Created to
+            permit DCQ in OAI-PMH responses Based almost entirely upon Matthew Mascord's work at
+            http://epubs.cclrc.ac.uk/xsd/qdc.xsd - just changed the targetNamespace and updated the
+            schemaLocation of the include. Original documentation retained in the other
+            xs:documentation element. </xs:documentation>
+        <xs:documentation xml:lang="en"> A Qualified DC application XML Schema Created 2004-06-09
+            Matthew Mascord (M.Mascord@rl.ac.uk) This schema includes the container element for a
+            Qualified DC application. In doing so it assigns that container element to the
+            targetNamespace of this schema. </xs:documentation>
+    </xs:annotation>
+    <xs:include schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/qualifieddc.xsd"/>
+</xs:schema>

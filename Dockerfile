@@ -22,7 +22,7 @@ RUN ant -Dappname=ROOT -Dcustom=dm2e -Ddeploy_target=mint2@ddbkultur -Ddeploy_lo
 
 RUN groupadd -r ${RUN_GROUP} && useradd -g ${RUN_GROUP} -d ${CATALINA_HOME} -s /bin/bash ${RUN_USER} && \
 	chown -R ${RUN_USER}:${RUN_GROUP} ${CATALINA_HOME} && \
-	chmod -R 666 ${CATALINA_HOME}/webapps && \
-	chmod -R 666 ${CATALINA_HOME}/conf
+	chmod -R 777 ${CATALINA_HOME}/webapps && \
+	chmod -R 777 ${CATALINA_HOME}/conf
 
 EXPOSE 8080

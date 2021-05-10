@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      Autorin: Eleonore Emsbach
+      Version: 1.0
+      Datum: 20210409 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+  xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <xs:import namespace="http://id.loc.gov/vocabulary/relators/" schemaLocation="marcrel.xsd"/>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://www.europeana.eu/schemas/edm/" schemaLocation="edm.xsd"/>
+  <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="rdf.xsd"/>
+  <xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>
+
+  <xs:element name="Doi">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Digital Object Identifier.</xs:documentation>
+      <xs:documentation xml:lang="de">Digital Object Identifier.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Spezifizierung eines Identifikators vom Typ "DOI".</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Hdl">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Unique and persistent identifier for digital objects developed
+        by the Corporation for National Research Initiatives.</xs:documentation>
+      <xs:documentation xml:lang="de">Eindeutiger und dauerhafter Bezeichner für digitale Objekte,
+        entwickelt von der Corporation for National Research Initiatives.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Spezifizierung eines Identifikators vom Typ "Handle".</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Identifier">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Token or name that is associated with a resource, such as a
+        URI or an ISBN.</xs:documentation>
+      <xs:documentation xml:lang="de">Token oder Name, der mit einer Ressource verbunden ist, z. B.
+        ein URI oder eine ISBN.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Angabe von Identifikatoren ohne speziellen Typ.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Isbn">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">International Standard Book Number.</xs:documentation>
+      <xs:documentation xml:lang="de">Internationale Standardbuchnummer.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Spezifizierung eines Identifikators vom Typ "ISBN".</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Issn">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">International Standard Serial Number.</xs:documentation>
+      <xs:documentation xml:lang="de">Internationale Standardnummer für fortlaufende
+        Sammelwerke.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Spezifizierung eines Identifikators vom Typ "ISSN".</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Urn">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Uniform Resource Number.</xs:documentation>
+      <xs:documentation xml:lang="de">Einheitlicher Ressourcenname.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
+        dc:identifer zur Spezifizierung eines Identifikators vom Typ "URN".</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

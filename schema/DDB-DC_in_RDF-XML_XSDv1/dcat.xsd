@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      Autorin: Eleonore Emsbach
+      Version: 1.0
+      Datum: 20210409 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.w3.org/ns/dcat#"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+  xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <xs:import namespace="http://id.loc.gov/ontologies/bibframe/#" schemaLocation="bf.xsd"/>
+  <xs:import namespace="http://id.loc.gov/vocabulary/relators/" schemaLocation="marcrel.xsd"/>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://www.europeana.eu/schemas/edm/" schemaLocation="edm.xsd"/>
+  <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="rdf.xsd"/>
+  <xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+
+  <xs:element name="CatalogRecord">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A record in a data catalog, describing the registration of a
+        single dataset or data service.</xs:documentation>
+      <xs:documentation xml:lang="de">Ein Datensatz in einem Datenkatalog, der die Registrierung
+        eines einzelnen Datensatzes oder Datendienstes beschreibt.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Dient zur Erfassung von
+        Metadaten über den Objektdatensatz in den Kindelementen dc:identifier (Identifikator des
+        Objektes, identisch zum Identifikator in rdf:RDF/rdf:Description/@rdf:about), dc:creator
+        (Identifikation des verantwortlichen Herstellers des Objektdatensatzes mittels ProviderID
+        aus der Registrierung) und dcterms:licence (Angabe des Rechtsstatus der Metadaten mittels
+        http-URI, der auf einen Rechthinweis aus einem kontrollierten Vokabular verweist. Der URI
+        wird im Attribut rdf:resource angegeben).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dc:identifier"/>
+        <xs:element ref="dc:creator"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:licence"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

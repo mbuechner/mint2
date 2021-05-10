@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      Autorin: Eleonore Emsbach
+      Version: 1.0
+      Datum: 20210409 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.europeana.eu/schemas/edm/"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+  xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <xs:import namespace="http://id.loc.gov/ontologies/bibframe/#" schemaLocation="bf.xsd"/>
+  <xs:import namespace="http://id.loc.gov/vocabulary/relators/" schemaLocation="marcrel.xsd"/>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="rdf.xsd"/>
+  <xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>
+
+  <xs:element name="begin" type="xs:token">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">This property denotes the start date of a period of
+        time.</xs:documentation>
+      <xs:documentation xml:lang="de">Diese Property kennzeichnet das Startdatum eines
+        Zeitraumes.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Startdatums eines
+        Zeitraumes unterhalb des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="currentLocation">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The geographic location and/or name of the repository,
+        building, site, or other entity whose boundaries presently include the
+        resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Die geografische Lage und/oder der Name des Repositoriums,
+        Gebäudes, Standorts oder einer anderen Einheit, innerhalb deren Bereichsgrenze sich die
+        Ressource derzeit befindet.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Die geografische Lage und/oder
+        der Name des Repositoriums, Gebäudes, Standorts oder einer anderen Einheit, innerhalb deren
+        Bereichsgrenze sich die Ressource derzeit befindet. Einfache literale Werte ohne http-URI
+        werden in edm:currentLocation angegeben. Für Kombinationen aus einem literalem Wert und
+        einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit
+        blindem Kindknoten dcterms:Location zu verwenden. Die Angabe des http-URIs erfolgt im
+        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
+        dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:Location"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="end" type="xs:token">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">This property denotes the end date of a period of
+        time.</xs:documentation>
+      <xs:documentation xml:lang="de">Diese Property kennzeichnet das Enddatum eines
+        Zeitraums.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Enddatums eines
+        Zeitraumes unterhalb des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+<!-- Prüfen, ob im Kontext der DDB edm:hasView nur für direkte Links zum digitalen Objekt verwendet werden soll, um Zuodnungsprobleme beim Mapping zu vermeiden.-->
+  <xs:element name="hasView">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger URL-Verweis auf
+        das digitale Objekt. edm:hasView sollte nur verwendet werden, wenn es mehrere digitale
+        Repräsentationen des beschriebenen Objektes gibt und eine (oder beide) der obligatorischen
+        Properties edm:isShownAt oder edm:isShownBy bereits verwendet wurden. Kann der digitalen
+        Repräsentation kein Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die
+        Angabe des URL im rdf:resource-Attribut der Property edm:hasView. Kann dagegen der digitalen
+        Repräsentation ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die
+        Modellierung mit dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die
+        digitale Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe
+        des Rechtehinweises im rdf:resource-Attribut von dessen Kindelement
+        dcterms:licence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:WebResource"/>
+      </xs:sequence>
+      <xs:attribute ref="rdf:resource" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="isShownAt">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An unambiguous URL reference to the digital object on the
+        provider’s web site in its full information context.</xs:documentation>
+      <xs:documentation xml:lang="de">Ein eindeutiger URL-Verweis auf das digitale Objekt auf der
+        Website des Anbieters in seinem vollständigen Informationskontext. </xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger URL-Verweis auf
+        eine digitale Repräsentation des beschriebenen Objektes auf der Website des Anbieters in
+        seinem vollständigen Informationskontext. Kann der digitalen Repräsentation kein
+        Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die Angabe des URL im
+        rdf:resource-Attribut der Property edm:isShownAt. Kann dagegen der digitalen Repräsentation
+        ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die Modellierung mit
+        dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die digitale
+        Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
+        Rechtehinweises im rdf:resource-Azttribut von dessen Kindelement dcterms:licence. Der
+        Datensatz muss entweder eine Instanz von edm:isShownAt oder eine Instanz von edm:isShownBy
+        enthalten.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:WebResource"/>
+      </xs:sequence>
+      <xs:attribute ref="rdf:resource" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="isShownBy">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An unambiguous URL reference to the digital object on the
+        provider’s web site in the best available resolution/quality.</xs:documentation>
+      <xs:documentation xml:lang="de">Ein eindeutiger URL-Verweis auf das digitale Objekt auf der
+        Website des Anbieters in der besten verfügbaren Auflösung/Qualität.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger URL-Verweis auf
+        eine digitale Repräsentation des beschriebenen Objektes auf der Website des Anbieters in der
+        besten verfügbaren Auflösung/Qualität. Kann der digitalen Repräsentation kein Rechtehinweis
+        oder keine Lizenz eindeutig zugeordnet werden, erfolgt die Angabe des URL im
+        rdf:resource-Attribut der Property edm:isShownBy. Kann dagegen der digitalen Repräsentation
+        ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die Modellierung mit
+        dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die digitale
+        Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
+        Rechtehinweises im rdf:resource-Attribut von dessen Kindelement dcterms:licence. Der
+        Datensatz muss entweder eine Instanz von edm:isShownAt oder eine Instanz von edm:isShownBy
+        enthalten.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:WebResource"/>
+      </xs:sequence>
+      <xs:attribute ref="rdf:resource" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="object">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The URL of a suitable source image in the best resolution
+        available on the web site of the data provider from which small images could be generated
+        for use in a portal. This will often be the same URL as given in
+        edm:isShownBy.</xs:documentation>
+      <xs:documentation xml:lang="de">Die URL eines geeigneten Quellbildes in der besten verfügbaren
+        Auflösung auf der Website des Datenanbieters, aus dem kleine Bilder für die Verwendung in
+        einem Portal erzeugt werden könnten. Dies wird oft die gleiche URL sein, die in
+        edm:isShownBy angegeben ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Die URL eines Vorschaubildes
+        oder geeigneten Quellbildes in der besten verfügbaren Auflösung auf der Website des
+        Datenanbieters, aus dem Vorschaubilder für das DDB-Portal erzeugt werden könnten. Kann dem
+        (Vorschau)Bild kein Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die
+        Angabe des URL im rdf:resource-Attribut der Property edm:object. Kann dagegen dem
+        (Vorschau)Bild ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die
+        Modellierung mit dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf das
+        (Vorschau)Bild erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
+        Rechtehinweises im rdf:resource-Attribut von dessen Kindelement
+        dcterms:licence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:WebResource"/>
+      </xs:sequence>
+      <xs:attribute ref="rdf:resource" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebResource">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Information Resources that have at least one Web
+        Representation and at least a URI.</xs:documentation>
+      <xs:documentation xml:lang="de">Informationsressourcen, die mindestens eine Webrepräsentation
+        und mindestens einen URI haben.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Wird verwendet zur Modellierung
+        eines blinden Knoten, wenn für eine digitale Repäsentation eines beschriebenen Objektes
+        zusätzlich zum URL-Verweis auch ein eindeutig zuordenbare/r http-URI eines Rechtehinweises
+        oder einer Lizenz geliefert werden kann. Die Angabe des URL-Verweises auf die digitale
+        Repräsentation erfolgt im rdf:about-Attribut von edm:WebResource, die Angabe des http-URI
+        des/der dazugehörigen Rechtehinweises oder Lizenz im rdf:resource-Attribut von dessen
+        Kindelement dcterms:licence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dcterms:licence"/>
+      </xs:sequence>
+      <xs:attribute ref="rdf:about" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      Autorin: Eleonore Emsbach
+      Version: 1.0
+      Datum: 20210409 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://purl.org/dc/elements/1.1/"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+  xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <xs:import namespace="http://id.loc.gov/ontologies/bibframe/#" schemaLocation="bf.xsd"/>
+  <xs:import namespace="http://id.loc.gov/vocabulary/relators/" schemaLocation="marcrel.xsd"/>
+  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://www.europeana.eu/schemas/edm/" schemaLocation="edm.xsd"/>
+  <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="rdf.xsd"/>
+  <xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>
+
+  <xs:element name="creator">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An entity primarily responsible for making the
+        resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Eine Entität, die für die Herstellung der Ressource
+        hauptverantwortlich ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: dc:creator wird sowohl für
+        verantwortliche Hersteller des beschriebenen Objektes (Pfad
+        rdf:RDF/rdf:Description/dc:creator) als auch für verantwortliche Hersteller des
+        Objektdatensatzes (Pfad:
+        rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:creator) verwendet.
+        Einfache literale Werte ohne http-URI werden in dc:creator angegeben. Für Kombinationen aus
+        einem literalem Wert und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist
+        die Modellierung mit blindem Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs
+        erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen
+        Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:Agent"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="contributor">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An entity responsible for making contributions to the
+        resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Eine Entität, die für Beiträge zur Ressource verantwortlich
+        ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe von Akteuren, die für
+        Beiträge zum beschriebenen Objekt verantwortlich sind. Einfache literale Werte ohne http-URI
+        werden in dc:contributor angegeben.Für Kombinationen aus einem literalem Wert und einem
+        http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit blindem
+        Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs erfolgt im
+        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
+        dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:Agent"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="date">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A point or period of time associated with an event in the
+        lifecycle of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Zeitpunkt oder Zeitspanne, die mit einem Ereignis im
+        Lebenszyklus der Ressource verknüpft ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zeitpunkt oder Zeitspanne, die
+        mit einem Ereignis im Lebenszyklus des beschriebenen Objektes verknüpft ist. Der Wert soll
+        konform zu ISO 8601 sein. Wenn die Zeitspanne nicht konform zu ISO 8601 dargestellt werden
+        kann, sollte die Modellierung mit blindem Kindknoten dcterms:PeriodOfTime gewählt werden.
+        Start- und Enddatum werden in dessen Kindelementen edm:begin und edm:end angegeben. Für das
+        Herstellungsdatum des beschriebenen Objektes sollte bevorzugt dcterms:created verwendet
+        werden, für das Veröffentlichungsdatum dcterms:issued.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:PeriodOfTime"/>
+      </xs:sequence>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="description">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An account of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Beschreibung der Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Textuelle Beschreibung des
+        Objektes.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="language">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A language of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Sprache der Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Sprache des beschriebenen
+        Objektes. Der Wert muss konform zu ISO 639-2 oder ISO 639-3 sein.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:pattern value="[aA-zZ]{2,3}"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!-- Die Werteliste basiert auf der Definition des DDB-Pflichtelements Mediendatei, siehe https://wiki.dnb.de/display/DDBSERVICE/Mediendatei -->
+  <xs:element name="format">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The file format, physical medium, or dimensions of the
+        resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Das Dateiformat, das physische Medium oder die Abmessungen der
+        Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angaben zum MIME-Type der
+        digitalen Repräsentation des beschriebenen Objektes.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="application/pdf"/>
+        <xs:enumeration value="application/vnd.ddbkultur.vimeo"/>
+        <xs:enumeration value="application/vnd.ddbkultur.zdf"/>
+        <xs:enumeration value="image/jpeg"/>
+        <xs:enumeration value="image/tiff"/>
+        <xs:enumeration value="image/png"/>
+        <xs:enumeration value="image/gif"/>
+        <xs:enumeration value="audio/mp3"/>
+        <xs:enumeration value="video/mp4"/>
+        <xs:enumeration value="video/vnd.ddbkultur.vimeo"/>
+        <xs:enumeration value="Video/vnd.ddbkultur.zdf"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <xs:element name="identifier">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An unambiguous reference to the resource within a given
+        context.</xs:documentation>
+      <xs:documentation xml:lang="de">Ein eindeutiger Verweis auf die Ressource innerhalb eines
+        bestimmten Kontexts.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger Verweis auf das
+        beschriebene Objekt innerhalb eines bestimmten Kontexts. Zur Differenzierung verschiedener
+        Identifikatoren-Typen (Identifikator des Datensatzes, DOI, ISBN, URN etc.) wird eine
+        Modellierung mit blindem Kindknoten aus dem Bibframe-Namensraum gewählt. Http-URIs als
+        Identifikatoren werden in dc:identifer im Attribut rdf:resource angegeben, ohne dass ein
+        blinder Knoten modelliert wird. Der Identifikator für den Datenlieferanten wird in der
+        Property dc:creator unterhalb von dcat:CatalogRecord angegeben.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="bf:Doi"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="bf:Hdl"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="bf:Identifier"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="bf:Isbn"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="bf:Issn"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="bf:Urn"/>
+      </xs:choice>
+      <xs:attribute ref="rdf:resource" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="publisher">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">An entity responsible for making the resource
+        available.</xs:documentation>
+      <xs:documentation xml:lang="de">Eine Entität, die für die Bereitstellung der Ressource
+        verantwortlich ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe von Akteuren, die für
+        die Bereitstellung des beschriebenen Objektes verantwortlich sind. Einfache literale Werte
+        ohne http-URI werden in dc:publisher angegeben. Für Kombinationen aus einem literalem Wert
+        und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit
+        blindem Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs erfolgt im
+        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
+        dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:Agent"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="relation">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A related resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Eine verwandte Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Verweis auf ein verwandtes
+        Objekt.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="rights">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Information about rights held in and over the
+        resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Informationen über Rechte, die an und über die Ressource
+        gehalten werden.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Allgemeine Hinweise zu Rechten
+        am beschriebenen Objekt in literaler Form. Http-URIs, die auf einen Rechtehinweis oder eine
+        Lizenz verweisen, werden in dcterms:licence angegeben. Angaben zum Rechteinhaber erfolgen in
+        dcterms:rightsHolder.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="source">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A related resource from which the described resource is
+        derived.</xs:documentation>
+      <xs:documentation xml:lang="de">Eine verwandte Ressource, von der die beschriebene Ressource
+        abgeleitet ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe eines verwandten
+        Objektes, von der das beschriebene Objekt abgeleitet ist.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="subject">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The topic of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Thema der Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Für Sachschlagwörter und
+        Akteure als Thema des beschriebenen Objektes. Für geografische Gebiete als Thema ist
+        bevorzugt dcterms:spatial zu verwenden. Einfache literale Werte ohne http-URI werden in
+        dc:subject angegeben. Für Kombinationen aus einem literalem Wert und einem http-URI, der auf
+        ein kontrolliertes Vokabular verweist, ist die Modellierung mit blindem Kindknoten zu
+        verwenden (skos:Concept für Sachschlagwörter bzw. dcterms:Agent für Akteure als Thema). Die
+        Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="1">
+        <xs:element ref="dcterms:Agent"/>
+        <xs:element ref="skos:Concept"/>
+      </xs:choice>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="title">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A name given to the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Ein Name, der der Ressource gegeben wird.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Originaltitels des
+        beschriebenen Objektes. Weitere Objekttitel sollen in dcterms:alterantive angegeben
+        werden.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The nature or genre of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Die Art oder das Genre der Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Objekttyps des
+        beschriebenen Objektes. Einfache literale Werte ohne http-URI werden in dc:type angegeben.
+        Für Kombinationen aus einem literalem Wert und einem http-URI, der auf ein kontrolliertes
+        Vokabular verweist, ist die Modellierung mit blindem Kindknoten skos:Concept zu verwenden.
+        Die Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="skos:Concept"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:assert test="
+          if (node()[not(self::text())] and text()[normalize-space(.) != '']) then
+            false()
+          else
+            true()"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

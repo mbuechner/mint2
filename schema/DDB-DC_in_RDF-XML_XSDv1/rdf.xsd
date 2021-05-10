@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      Autorin: Eleonore Emsbach
+      Version: 1.0
+      Datum: 20210409 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+  xmlns:bf="http://id.loc.gov/ontologies/bibframe/#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <xs:import namespace="http://id.loc.gov/ontologies/bibframe/#" schemaLocation="bf.xsd"/>
+  <xs:import namespace="http://id.loc.gov/vocabulary/relators/" schemaLocation="marcrel.xsd"/>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://www.europeana.eu/schemas/edm/" schemaLocation="edm.xsd"/>
+  <xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>
+
+  <xs:element name="RDF">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Wurzelelement des RDF/XML-Dokuments. Üblicherweise wird das
+        rdf:RDF-Element auch zur Deklaration der verwendeten XML-Namensräume
+        verwendet.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rdf:Description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Description">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Wird in einem RDF/XML-Dokument zur Gruppierung multipler
+        Aussagen über dieselbe Ressource verwendet. Das Element benennt in dem Attribut rdf:about
+        die Ressource, auf die sich die einzelnen Aussagen beziehen.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:contributor"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:creator"/>
+        <xs:element minOccurs="0" maxOccurs="2" ref="dc:date"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:description"/>
+        <xs:element ref="dc:format"/>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="dc:identifier"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:language"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:publisher"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:relation"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dc:rights"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:source"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:subject"/>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="dc:title"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dc:type"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:abstract"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:accessRights"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:alternative"/>
+        <xs:element minOccurs="0" maxOccurs="2" ref="dcterms:created"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:extent"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:isPartOf"/>
+        <xs:element ref="dcterms:isReferencedBy"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:issued"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dcterms:licence"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:medium"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:provenance"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:rightsHolder"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:spatial"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dcterms:temporal"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="edm:currentLocation"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="edm:hasView"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:isShownAt"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:isShownBy"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="edm:object"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="marcrel:fnd"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="marcrel:pup"/>
+        <xs:element ref="rdf:type"/>
+      </xs:all>
+      <xs:attribute ref="rdf:about" use="required">
+        <xs:annotation>
+          <xs:documentation xml:lang="de"/>
+          <xs:documentation xml:lang="de"/>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Gibt an, dass eine Ressource eine Instanz einer Klasse
+        ist.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Medientyps des
+        beschriebenen Objektes. Der Wert muss ein http-URI sein, der auf einen Begriff aus dem DCMI
+        Type Vocabular verweist. Der http-URI wird im Attribut rdf:resource
+        angegeben.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute ref="rdf:resource" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+<!-- URL als Wert v. rdf:value muss noch geklärt werden -->
+  <xs:element name="value">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Wird als Kindelement für blinde
+        Knoten verwendet, wenn der Inhalt sich um einen strukturierten Wert und nicht um ein Label
+        handelt.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <!-- Attribut prüfen-->
+      <xs:attribute ref="rdf:resource"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Wert in rdf:about in rdf:Description ist u.U. kein http-URI. Deshalb keine Abprüfung auf http-URIs-->
+  <xs:attribute name="about" type="xs:anyURI">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Wird in einer RDF/XML-Serialisierung für einen URI-Verweis auf
+        das Subjekt des RDF-Statements verwendet.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Identifikators des
+        beschriebenen Objektes.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="resource">
+    <xs:annotation>
+      <xs:documentation xml:lang="de">Wird in einer RDF/XML-Serialisierung für einen URI-Verweis auf
+        das Objekt des RDF-Statements verwendet.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Der URI muss ein auflösbarer
+        http-URI sein.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:anyURI">
+        <xs:pattern value="http.*://.*"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+
+</xs:schema>

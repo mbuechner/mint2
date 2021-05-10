@@ -1,0 +1,979 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<!--
+
+ ! DenkXML - DenkXweb Markup Language Schema Definition
+ ! Copyright (C) 2011-2015 rjm business solutions GmbH
+ !
+ ! Dieses Schema beschreibt die Kernfeld-Daten, die im Rahmen des DenkXweb-
+ ! Projekts durch das Landesamt für Denkmalpflege Hessen für die Kulturdenkmäler
+ ! und Gesamtanlagen des Landes Hessen erhoben werden. Angepasst im Rahmen
+ ! des Projektes Deutsche Digitale Bibliothek in Zusammenarbeit mit der 
+ ! Vereinigung der Landesdenkmalpfleger in der Bundesrepublik Deutschland
+ !
+ ! Versionsstand:
+ !  * 0.8 (ncalow) - Rollen entfernt, bis neue Vorgaben durch die AG DIS erfolgen
+ !  * 0.7 (ncalow) - Bugfix Elementanbindung für Person
+ !	* 0.6 (ncalow) - Pflichtangaben nach Vorgabe durch die AG DIS der VdL, 
+					 Mehrfachnennungen für buildingType und buildingCategorie
+ !  * 0.5 (ncalow) - Ergänzungen Datierung, GeoReferenz, Typ
+ !  * 0.4 (ncalow) - Rechteunterscheidung
+ !  * 0.3 (tsauer) - Display-Attribut bei knownYearRange ergänzt 
+ !  * 0.2 (tsauer) - Ergänzung Kommentare, Korrektur Tagnamen
+ !  * 0.1 (ncalow) - Erste Fassung, Gestaltung von Tagnamen in Anlehung an
+ !                   Kernfeld-Vorschlag AG DIS der VdL  
+ !
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns="http://www.rjm.de/denkxweb/denkxml" targetNamespace="http://www.rjm.de/denkxweb/denkxml" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Kernfeld-Daten zur Beschreibung der Bau- und Flächendenkmäler. Ursprünglich entwickelt zur Verwendung in Hessen.
+</xs:documentation>
+</xs:annotation>
+<!--  GML zur Georeferenzierung importieren  -->
+<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+<!--
+ =================================================================== 
+-->
+<!--  Monument                                                             -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Monument">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Beschreibung eines Bau- oder Flächendenkmals. Ein Baudenkmal beschreibt einzelne Gebäude, Gebäudeteile oder Kleindenkmäler. Ein Flächendenkmal beschreibt ein Denkmal-Ensemble, das oftmals ganze Staßenzüge oder Ortslagen überdeckt.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  Monument/recId -->
+<xs:element name="recId" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Eindeutiger Identifikator. Derzeit: Laufnummer, die bei der Inventarisation vergeben wurde.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/partOf  -->
+<xs:element name="partOf" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Eindeutiger Identifikator eines übergeordneten Monuments, um eine Hierarchie erzeugen zu können. Derzeit: Laufnummer, die bei der Inventarisation vergeben wurde.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/country  -->
+<xs:element name="country" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: ISO-Code des Staats. Derzeit immer: DE
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/state  -->
+<xs:element name="state" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Pflichtangabe: Bundesland. </xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Baden-Württemberg"/>
+<xs:enumeration value="Bayern"/>
+<xs:enumeration value="Bremen"/>
+<xs:enumeration value="Brandenburg"/>
+<xs:enumeration value="Berlin"/>
+<xs:enumeration value="Sachsen"/>
+<xs:enumeration value="Sachsen-Anhalt"/>
+<xs:enumeration value="Thüringen"/>
+<xs:enumeration value="Mecklenburg-Vorpommern"/>
+<xs:enumeration value="Hamburg"/>
+<xs:enumeration value="Schleswig-Holstein"/>
+<xs:enumeration value="Niedersachsen"/>
+<xs:enumeration value="Hessen"/>
+<xs:enumeration value="Saarland"/>
+<xs:enumeration value="Rheinland-Pfalz"/>
+<xs:enumeration value="Nordrhein-Westfalen"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<!--  Monument/district  -->
+<xs:element name="district" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Landkreis. Bei kreisfreien Städten wie Wiesbaden wird der Städtename als Landkreis angegeben.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/municipality  -->
+<xs:element name="municipality" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Pflichtangabe: Stadt bzw. Gemeinde.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/area  -->
+<xs:element name="area" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional ab Juni 2014: Ortsteil.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/zipCode   -->
+<xs:element name="zipCode" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Postleitzahl.</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:pattern value="[0-9]{5}"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<!--  Monument/address  -->
+<xs:element name="address" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Seit 05.06.2014 optional: Straße und Hausnummer. Bei Straßenzügen können hier mehrere Hausnummern durch Komma oder Trennstriche getrennt aufgeführt werden, z.B. Hauptstraße 5-7.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/name  -->
+<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Eigenname oder Funktionsbezeichnung, z.B. "Kath. Kirche". Bei Flächendenkmälern wird oftmals die Lage umschrieben, z.B. "Südliche Altstadt"
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/description  -->
+<xs:element name="description" type="Text" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Begründungstext zur Erläuterung der Schutzwürdigkeit.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/recOrganization  -->
+<xs:element name="recOrganization" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Pflichtangabe: Datenhaltende Institution.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/recDate  -->
+<xs:element name="recDate" type="xs:date" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Pflichtangabe: Datum der Datensatzerstellung</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/recLastChangeDate  -->
+<xs:element name="recLastChangeDate" type="xs:date" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Datum der letzten Datensatzänderung
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/buildingCategory  -->
+<xs:element name="buildingCategory" minOccurs="0" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Kategorisierung des Bautyps (Funktion)
+</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Wohnen"/>
+<xs:enumeration value="Sakralbauten"/>
+<xs:enumeration value="Industrie, Technik, Handwerk"/>
+<xs:enumeration value="Landwirtschaft, Forstwirtschaft"/>
+<xs:enumeration value="Befestigung, Militär"/>
+<xs:enumeration value="Öffentliche Bauten, Verwaltung"/>
+<xs:enumeration value="Handel, Gewerbe, Dienstleistung"/>
+<xs:enumeration value="Gesundheit, Soziales"/>
+<xs:enumeration value="Sport, Freizeit"/>
+<xs:enumeration value="Landschaft"/>
+<xs:enumeration value="Bildung, Wissenschaft, Kultur"/>
+<xs:enumeration value="Garten, Park, Freiraum"/>
+<xs:enumeration value="Bauteil, Ausstattung"/>
+<xs:enumeration value="Denkmal, Kleindenkmal"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<!--  Monument/buildingType  -->
+<xs:element name="buildingType" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Klassifikation des Bautyps/ der Funktion z.B. "Wohnhaus"
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/dating  -->
+<xs:element name="dating" type="Dating" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Datierung des beschriebenen Denkmals. Achtung: Auch wenn es sich um eine Pflichtangabe handelt, kann der Inhalt "unbekannt" lauten - eine Datierung kann damit nicht zwingend über dieses Element ermittelt werden.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/authoritativeRepresentation  -->
+<xs:element name="authoritativeRepresentation" type="Resource" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Offizielle (Web-)Darstellung der datenhaltenden Institution. Deep Link
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/images  -->
+<xs:element name="images" type="ImageList" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Geordnete Auflistung der vorliegenden Abbildungen des beschriebenen Denkmals. Falls mehrere Abbildungen vorliegen, sollte eine bevorzugte ausgezeichnet werden, das z.B. als Repräsentant in einer Ergebnisliste verwendet werden kann. Fehlt eine solche Auszeichnung, sollte das zuerst aufgeführte verwendet werden.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/notablePersons  -->
+<xs:element name="notablePersons" type="NotablePersons" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Personen, die mit dem beschriebenen Denkmal in Bezug stehen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/bibliography  -->
+<xs:element name="bibliography" type="Bibliography" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Literaturverweise, die sich bei der Inventarisation des Denkmals als hilfreich erwiesen haben.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/cadastralReference  -->
+<xs:element name="cadastralReference" type="CadastralParcelCollection" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Liste von Flurstücken, die von dem beschriebenen Denkmal überdeckt werden.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/georeference  -->
+<xs:element name="geoReference" type="GeoReference" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Georeferenzierung des beschriebenen Denkmals.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Monument/recCopyright  -->
+<xs:element name="recCopyright" type="RecordRights" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Copyright-Hinweise </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  Monument/@required  -->
+<xs:attribute name="type" use="required">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Unterscheidung, ob sich die Beschreibung auf ein Baudenkmal oder auf ein Flächendenkmal bezieht. INSPIRE konforme Typbezeichung.
+</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:enumeration value="Baudenkmal"/>
+<xs:enumeration value="Flächendenkmal"/>
+<xs:enumeration value="Teil eines Denkmals"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Text                                                                 -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Text">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Ein natürlichsprachiger Text.</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<xs:element name="p" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Ein Absatz innerhalb eines Textes.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  CadastralParcel                                                      -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="CadastralParcel">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Textuelle Beschreibung eines Flurstücks, das von einem Denkmal überdeckt wird.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  CadastralParcel/recId  -->
+<xs:element name="recId" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Identifikationsnummer. ALKIS-Identifikator.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  CadastralParcel/street  -->
+<xs:element name="street" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Straßenname.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  CadastralParcel/number  -->
+<xs:element name="number" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Hausnummer, incl. Zusätzen wie "a".
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  CadastralParcel/@canonical  -->
+<xs:attribute name="canonical" type="xs:boolean">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Angabe, ob der Standort die kanonische Adresse wie im Denkmalbuch geführt angibt. Es darf maximal eine Adresse als kanonisch festgelegt werden.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  RecordRights																  -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="RecordRights">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Rechteangaben</xs:documentation>
+</xs:annotation>
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<!--  RecordRights/@ref  -->
+<xs:attribute name="ref" use="required" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: URI Rechteangabe für Ressource der datenhaltenden Institution.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  RecordRights/@meta  -->
+<xs:attribute name="meta" use="optional" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: URI Rechtangabe Element</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  CadastralParcelCollection                                            -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="CadastralParcelCollection">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Eine ungeordnete Liste von Flurstücken.</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<xs:element name="parcel" type="CadastralParcel" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Ein einzelnes Flurstück.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Dating                                                               -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Dating">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Beschreibt die Datierung eines Denkmals, die im Rahmen der Inventarisation erhoben wurde. Diese Dateierung bezeiht sich auf das Bauwerk bzw. im Falle einer Gesamtanlage auf eine Denkmal-Ensemble und nicht auf ein im Zusammenhang mit der Erfassung erstelltes Digitalisat. Die Datierung historischer Fotografien usw. ist nicht Gegenstand der Denkmal-Inventarisation.
+</xs:documentation>
+</xs:annotation>
+<xs:choice>
+<!--  Dating/knownDate  -->
+<xs:element name="knownDate" type="xs:date">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+1. Möglichkeit: Konkreter Tag. Wenn auch selten, ist es in einigen Fällen je nach Quellenlage, Inschriften u.dgl. möglich, die Datierung eines Denkmals auf einen konkreten Tag festzulegen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Dating/knownYear  -->
+<xs:element name="knownYear" type="xs:gYear">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+2. Möglichkeit: Konkrete Jahreszahl (z.B. 1870)
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Dating/knownYearRange  -->
+<xs:element name="knownYearRange">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+3. Möglichkeit: Zeitraum. Oft kann keine konkrete Jahreszahl als Datierung festgelegt werden, aber ein möglicher Zeitraum in etwa abgeschätzt werden. Derzeit werden zur Abschätzung nur Zeiträume von +/- 10 oder +/- 25 Jahren um eine konkrete Jahreszahl angegeben.
+</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:all>
+<xs:element name="from" type="xs:gYear">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Beginn des Datierungszeitraums. Muß vor der Angabe im Element "to" liegen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="to" type="xs:gYear">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Ende des Datierungszeitraums. Muß nach der Angabe im Element "from" liegen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:all>
+</xs:complexType>
+</xs:element>
+<!--  Dating/knownCentury  -->
+<xs:element name="knownCentury">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+4. Möglichkeit: Unscharfe Angabe eines Jahrhunderts. In vielen Fällen kann zur Datierung nur eine ungefähre Angabe des Jahrhunderts angegeben werden. In der Regel bezieht sich die Angabe des Jahrhunders auf die Zeit nach Christi Geburt, so dass die Angabe "18. Jahrhundert" einem Zeitraum von 1701 bis 1800 abdeckt. Optional kann eine Tendenz hinsichtlich Beginn oder Ende des Jahrhunderts angegeben werden.
+</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<!--  knownCentury/@era  -->
+<xs:attribute name="era" default="AD">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Angabe, ob ein Jahrhundert vor oder nach Christi Geburt gemeint ist.
+</xs:documentation>
+</xs:annotation>
+<xs:simpleType>
+<xs:restriction base="xs:NMTOKEN">
+<!--  Before Christ  -->
+<xs:enumeration value="BC">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Das angegebene Jahrhundert bezieht sich auf die Zeit vor Christi Geburt.
+</xs:documentation>
+</xs:annotation>
+</xs:enumeration>
+<!--  Anno Domini  -->
+<xs:enumeration value="AD">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Das angegebene Jahrhundert bezieht sich auf die Zeit nach Christi Geburt.
+</xs:documentation>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<!--  Dating/@tendency  -->
+<xs:attribute name="tendency">
+<xs:simpleType>
+<xs:restriction base="xs:NMTOKEN">
+<xs:enumeration value="beginning">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Die Datierung lässt sich tendentiell eher auf den Anfang des angegebenen Jahrhunderts festlegen.
+</xs:documentation>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="end">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Die Datierung lässt sich tendentiell eher auf das Ende des angegebenen Jahrhunderts festlegen.
+</xs:documentation>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+</xs:element>
+<!--  Dating/unknown  -->
+<xs:element name="unknown">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+5. Möglichkeit: Unbekannt oder noch nicht erfasst. In vielen Fällen liegt die Datierung in der Denkmal-Begründung vor, wurde jedoch noch nicht als explizite Datierungsangabe umformatiert.
+</xs:documentation>
+</xs:annotation>
+<!--  empty element  -->
+<xs:complexType> </xs:complexType>
+</xs:element>
+</xs:choice>
+<!--  Dating/@type  -->
+<xs:attribute name="type" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Art des datierten Events wie z.B. Erweiterung
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Dating/@id  -->
+<xs:attribute name="id" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: innerhalb eines Datensatzes eindeutiger Identifier für die Datierung, um Personen etc. zuordnen zu können.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Dating/@url  -->
+<xs:attribute name="url" use="optional" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: URI Datierungsanlass z.B. für Umbau, Restaurierung
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Dating/@display  -->
+<xs:attribute name="display" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Bildschirmdarstellung des Bereichs wie im Erfassungssystem verwendet, z.B. "um 1830".
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Resource                                                             -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Resource">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Verlinkt eine Web-Resource zum beschriebenen Objekt.
+</xs:documentation>
+</xs:annotation>
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<!--  Resource/@url  -->
+<xs:attribute name="url" use="required" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: URI zum Abrufen der Resource.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Resource/@type  -->
+<xs:attribute name="type" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: MIME-Type zum Angeben des Formats, in der die Resource vorliegt.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Resource/@right  -->
+<xs:attribute name="rights" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: URI zum Abrufen der Rechte.</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Image                                                                -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Image">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Eine Abbildung, die in verschiedenen Qualitätsstufen vorliegen kann.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  Image/standard  -->
+<xs:element name="standard" type="Resource" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Standard-Darstellung der Abbildung in einer Größe und Auflösung, die eine Identifikation des dargestellten Denkmals erlaubt.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Image/thumbnail  -->
+<xs:element name="thumbnail" type="Resource" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Thumbnail-Darstellung.</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Image/description  -->
+<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Bildbeschreibung analog einer Bildunterschrift in der Denkmaltopographie (z.B. "Ansicht von Süden").
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  Image/@preferred  -->
+<xs:attribute name="preferred" type="xs:boolean">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Angabe, ob Bild eine bevorzugte Ansicht darstellt. Es sollte maximal ein Bild pro Denkmal als bevorzugt markiert werden.
+</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  ImageList                                                            -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="ImageList">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Eine Liste von Bildern, die ein Denkmal in verschiedenen Ansichten bzw. Detailaussschnitten zeigen. Eines der angegebenen Bilder sollte als bevorzugt gekennzeichnet werden, um z.B. zur Darstellung einer Trefferliste eine Auswahl treffen zu können.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<xs:element name="image" type="Image" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Ein konkretes Bild in einer Bildliste.</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  TODO: enforce uniqueness of preferred property  -->
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Person                                                               -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Person">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Beschreibung einer Person, die in einem Bezug zu einem Denkmal steht.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  Person/recId  -->
+<xs:element name="recId" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Eindeutiger Identifikator. Derzeit: Laufnummer
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Person/name  -->
+<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Name der Person. Falls bei der Inventarisierung keine Aufteilung in Namensbestandteile erfolgt ist, wird hier der vollständige Name angegeben
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Person/firstName  -->
+<xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Vorname der Person. Falls dieses Element belegt ist, beschreibt das Element "name" nur den Nachnamen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Person/title  -->
+<xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Titel der Person. Falls dieses Element belegt ist, beschreibt das Element "name" nur den Nachnamen.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  Person/@role  -->
+<xs:attribute name="role" type="xs:string" use="required">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Rolle, die eine Person bezüglich des Denkmals einnimmt.
+</xs:documentation>
+</xs:annotation>
+<!--
+ Ausgeschaltet bis eine Einigung über die AG DIS der VdL erreicht wird
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="builder-owner">
+						<xs:annotation>
+							<xs:documentation xml:lang="DE">Bauherr</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+										
+					<xs:enumeration value="architect">
+						<xs:annotation>
+							<xs:documentation xml:lang="DE">Architekt</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+
+					<xs:enumeration value="artist">
+						<xs:annotation>
+							<xs:documentation xml:lang="DE">Künstler</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+
+					<xs:enumeration value="architectOrArtist">
+						<xs:annotation>
+							<xs:documentation xml:lang="DE">Architekt oder 
+							Künstler, falls genaue Rolle nicht bekannt
+							</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>																			
+				</xs:restriction>
+			</xs:simpleType 
+-->
+</xs:attribute>
+<!--  Person/@event  -->
+<xs:attribute name="event" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: ID der Datierung </xs:documentation>
+</xs:annotation>
+</xs:attribute>
+<!--  Person/@date  -->
+<xs:attribute name="date" type="xs:string">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Datierung </xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  NotablePersons                                                       -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="NotablePersons">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Verzeichnis von Personen, die in einem Bezug zu einem Denkmals stehen.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<xs:element name="person" type="Person" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Eine Person, die im Zusammenhang mit einem konkreten Denkmal steht.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Reference                                                            -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Reference">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Ein Literaturverweis auf ein eigenständiges Werk, z.B. ein Buch oder eine Zeitschriftenausgabe
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  Reference/recId  -->
+<xs:element name="recId" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Eindeutiger Identifikator. Derzeit: Laufnummer.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/author  -->
+<xs:element name="author" type="xs:string" minOccurs="0">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Name des Autors oder des Herausgebers.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/title  -->
+<xs:element name="title" type="xs:string" minOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Pflichtangabe: Titel </xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/year  -->
+<xs:element name="year" type="xs:gYear" minOccurs="0">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Optional: Erscheinungsjahr </xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/publisher  -->
+<xs:element name="publisher" type="xs:string" minOccurs="0">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Optional: Verlag </xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/address  -->
+<xs:element name="address" type="xs:string" minOccurs="0">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Optional: Erscheinungsort </xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--  Reference/isbn  -->
+<xs:element name="isbn" type="xs:string" minOccurs="0">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: ISBN/ISSN </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  Bibliography                                                         -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="Bibliography">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Eine Liste von Literaturangaben, die sich bei der Beschreibung eines Denkmals als hilfreich erwiesen haben. Zu jedem Literaturverweis kann optional noch ein Verweis auf eine Sammelpublikation erfolgen.
+</xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<xs:element name="reference" minOccurs="1" maxOccurs="unbounded">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Ein konkreter Literaturverweis</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:complexContent>
+<xs:extension base="Reference">
+<xs:sequence>
+<!--  Reference/series  -->
+<xs:element name="series" type="Reference" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: Jeder bei der Beschreibung eines Denkmals angegebene Literaturverweis darf auf eine Sammelpublikation verweisen, z.B. ein Buch mit Beiträgen verschiedener Autoren oder eine Schriftenreihe.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  GeoReference                                                         -->
+<!--
+ =================================================================== 
+-->
+<xs:complexType name="GeoReference">
+<xs:annotation>
+<xs:documentation xml:lang="DE"> Die Georeferenzierung eines Denkmals. </xs:documentation>
+</xs:annotation>
+<xs:sequence>
+<!--  GeoReference/position  -->
+<xs:element name="position" minOccurs="1" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Pflichtangabe: Ein Referenzpunkt, der den Standort des Denkmals angibt. Dieser Punkt kann insbesondere dazu verwendet werden, um eine Kartendarstellung zu zentrieren.
+</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:choice>
+<xs:element ref="gml:Point"/>
+</xs:choice>
+</xs:complexType>
+</xs:element>
+<!--  GeoReference/geometry  -->
+<xs:element name="geometry" type="xs:string" minOccurs="0" maxOccurs="1">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Optional: WKT-Feld zur Ablage von Geometrie-Beschreibungen
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+<!--  GeoReference/@srs  -->
+<xs:attribute name="srs" use="required" type="xs:anyURI">
+<xs:annotation>
+<xs:documentation xml:lang="DE">Optional: Angabe des Koordinatensystems URI.</xs:documentation>
+</xs:annotation>
+</xs:attribute>
+</xs:complexType>
+<!--
+ =================================================================== 
+-->
+<!--  monument                                                             -->
+<!--
+ =================================================================== 
+-->
+<xs:element name="monument" type="Monument">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Startelement zur Beschreibung eines einzelnen Denkmals.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+<!--
+ =================================================================== 
+-->
+<!--  collection                                                           -->
+<!--
+ =================================================================== 
+-->
+<xs:element name="collection">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Startelement zur Beschreibung mehrerer Denkmäler.
+</xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence minOccurs="1" maxOccurs="unbounded">
+<xs:element name="monument" type="Monument">
+<xs:annotation>
+<xs:documentation xml:lang="DE">
+Ein konkretes Denkmal, das in der Auflistung beschrieben wird.
+</xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<!--  enforce unique record IDs  -->
+<xs:unique name="monumentId">
+<xs:selector xpath="monument"/>
+<xs:field xpath="recId"/>
+</xs:unique>
+</xs:element>
+</xs:schema>
+

@@ -5,7 +5,7 @@ ENV RUN_GROUP 0
 ENV JAVA_HOME $JRE_HOME
 ENV TOMCAT_HOME $CATALINA_HOME
 ENV CATALINA_OPTS "-noverify"
-RUN apt-get update && apt-get install -y ant git sudo && \
+RUN apt-get update && apt-get install -y ant git && \
 	git clone https://github.com/mint-ntua/Mint2.git /mint2 && \
 	apt-get purge -y git && \
 	apt-get auto-remove -y && \
@@ -22,8 +22,7 @@ RUN ant -Dappname=ROOT -Dcustom=dm2e -Ddeploy_target=mint2@ddbkultur -Ddeploy_lo
 
 RUN groupadd -r ${RUN_GROUP} && useradd -g ${RUN_GROUP} -d ${CATALINA_HOME} -s /bin/bash ${RUN_USER} && \
 	chown -R ${RUN_USER}:${RUN_GROUP} ${CATALINA_HOME} && \
-	chmod -R 660 ${CATALINA_HOME}/webapps && \
-	chmod -R 660 ${CATALINA_HOME}/conf
+	chmod -R 666 ${CATALINA_HOME}/webapps && \
+	chmod -R 666 ${CATALINA_HOME}/conf
 
 EXPOSE 8080
-CMD ["sudo", "-u", "${RUN_USER}", "catalina.sh", "run"]

@@ -30,12 +30,7 @@
   <xs:documentation xml:lang="DE"> Kernfeld-Daten zur Beschreibung der Bau- und Flächendenkmäler.
    Ursprünglich entwickelt zur Verwendung in Hessen. </xs:documentation>
  </xs:annotation>
- <!--  GML zur Georeferenzierung importieren  -->
- <xs:import namespace="http://www.opengis.net/gml/3.2"
-  schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
- <!--
- =================================================================== 
--->
+
  <!--  Monument                                                             -->
  <!--
  =================================================================== 
@@ -875,11 +870,7 @@
       Denkmals angibt. Dieser Punkt kann insbesondere dazu verwendet werden, um eine
       Kartendarstellung zu zentrieren. </xs:documentation>
     </xs:annotation>
-    <xs:complexType>
-     <xs:choice>
-      <xs:element ref="gml:Point"/>
-     </xs:choice>
-    </xs:complexType>
+
    </xs:element>
    <!--  GeoReference/geometry  -->
    <xs:element name="geometry" type="xs:string" minOccurs="0" maxOccurs="1">

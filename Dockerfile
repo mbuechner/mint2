@@ -20,7 +20,7 @@ COPY ddbkultur_log4j.properties WEB-INF/deploy/mint2@ddbkultur/log4j.properties
 COPY ddbkultur_mint.properties WEB-INF/deploy/mint2@ddbkultur/mint.properties
 COPY schemas/ schemas/
 COPY scripts/ scripts/
-RUN ant -Dappname=ROOT -Dcustom=dm2e -Ddeploy_target=mint2@ddbkultur -Ddeploy_local=true deploy
+RUN ant -Dappname=ROOT -Dcustom=ddbkultur -Ddeploy_target=mint2@ddbkultur -Ddeploy_local=true deploy
 
 RUN groupadd -r ${RUN_GROUP} && useradd -g ${RUN_GROUP} -d ${CATALINA_HOME} -s /bin/bash ${RUN_USER} && \
 	chown -R ${RUN_USER}:${RUN_GROUP} ${CATALINA_HOME} && \

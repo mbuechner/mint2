@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://purl.org/dc/terms/" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
@@ -72,7 +72,6 @@
     </xs:annotation>
   </xs:element>
 
-  <!-- Im DDB View soll der Wert auf ein allgemeines Label gemappt werden, ggf. muss ein Label für Umfang, Maße und Dauer definiert werden. -->
   <xs:element name="extent" type="xs:token">
     <xs:annotation>
       <xs:documentation xml:lang="en">The size or duration of the resource.</xs:documentation>
@@ -103,9 +102,12 @@
         to the described resource.</xs:documentation>
       <xs:documentation xml:lang="de">Eine verwandte Ressource, die auf die beschriebene Ressource
         verweist, sie zitiert oder anderweitig auf sie verweist.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Containerelement, das Metadaten
-        zum Objektdatensatz umfasst. Die Modellierung erfolgt mit einem blinden Kindknoten
-        dcat:CatalogRecord.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Das Element wird zur Angabe von
+        Metadaten zum Objektdatensatz (administrative Metadaten) verwendet. Die Modellierung erfolgt
+        mit einem blinden Knoten mit Typ-Zuweisung dcat:CatalogRecord als Wert von
+        dcterms:isReferencedBy, die administrativen Metadaten werden in den dem blinden Knoten
+        zugeordneten Properties dc:identifier, dc:creator und dcterms:licence
+        erfasst.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -133,15 +135,16 @@
         muss ein http-URI sein, der auf einen Rechtehinweis oder eine Lizenz aus einem
         kontrollierten Vokabular (Lizenzkorb der DDB,
         https://pro.deutsche-digitale-bibliothek.de/lizenzen-und-rechtehinweise-der-lizenzkorb-der-deutschen-digitalen-bibliothek)
-        verweist, wobei der URI im Attribut rdf:resource der Property angegeben wird,. Der
+        verweist, wobei der URI im Attribut rdf:resource der Property angegeben wird. Der
         Rechtehinweis bzw. die Lizenz kann sich entweder auf die digtale Repräsentation des
-        beschriebenen Objektes oder auf dessen Metadaten beziehen. Ein Datensatz kann kann mehrere
-        URL-Verweise auf digtale Repräsentationen des beschriebenen Objektes enthalten. Kann der
+        beschriebenen Objektes oder auf dessen Metadaten beziehen. Ein Datensatz kann URL-Verweise
+        auf mehrere digtale Repräsentationen des beschriebenen Objektes enthalten. Kann der
         Rechtehinweis nicht eindeutig einem digitalen Objekt zugeordnet werden, erfolgt die Angabe
         von dcterms:licence als Kindelement von rdf:Description. Bei eindeutiger Zuordenbarkeit
         erfolgt die Angabe von dcterms:licence unterhalb des Elements, das den URL-Verweises auf die
-        digitale Repräsenation enthält. Der Rechtehinweis für die Metadaten wird unterhalb von
-        dcat:CatalogRecord angegeben.</xs:documentation>
+        digitale Repräsenation enthält (edm:object, edm:isShownBy, edm:hasView, edm:isShownAt). Der
+        Rechtehinweis für die Metadaten wird unterhalb von dcat:CatalogRecord
+        angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attribute ref="rdf:resource" use="required"/>
@@ -156,11 +159,12 @@
         Ressource.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Konetxt der DDB: Angaben zum materiellen oder
         physischen Träger des beschriebenen Objektes sowie zur angewendeten Technik. Einfache
-        literale Werte ohne http-URI werden in dcterms:medium angegeben.Für Kombinationen aus einem
-        literalem Wert und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die
-        Modellierung mit blindem Kindknoten skos:Concept zu verwenden. Die Angabe des http-URIs
-        erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen
-        Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+        literale Werte ohne http-URI werden in dcterms:medium angegeben. Für Kombinationen aus einem
+        literalen Wert und einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die
+        Modellierung mit dem typisierten Knoten skos:Concept als Wert von dcterms:medium zu
+        verwenden. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens,
+        die Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -180,9 +184,9 @@
         Interpretation von Bedeutung sind.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: In dcterms:provenance erfolgt
         die Angabe von Institutionen, Organisationen und Personen. Für allgemeine Informationen im
-        Kontext der Provenienz soll die Modellierung mit blindem Kindknoten
-        dcterms:ProvenanceStatement gewählt werden, wobei die Informationen in dessen Kindelement
-        rdf:value angegeben werden sollen.</xs:documentation>
+        Kontext der Provenienz soll die Modellierung mit einem blinden Knoten mit Typzuweisung
+        dcterms:ProvenanceStatement als Wert von dcterms:provenance gewählt werden, wobei die
+        Informationen in dessen Property rdf:value angegeben werden sollen.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -204,11 +208,11 @@
       <xs:documentation xml:lang="de">Eine Person oder Organisation, die Rechte an der Ressource
         besitzt oder verwaltet.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Einfache literale Werte ohne
-        http-URI werden in dcterms:rightsHolder angegeben. Für Kombinationen aus einem literalem
-        Wert und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung
-        mit blindem Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelement skos:prefLabel.</xs:documentation>
+        http-URI werden in dcterms:rightsHolder angegeben. Für Kombinationen aus einem literalen
+        Wert und einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die Modellierung
+        mit dem typisierten Knoten dcterms:Agent als Wert von dcterms:rightsHolder zu verwenden. Die
+        Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -229,11 +233,11 @@
       <xs:documentation xml:lang="de">Räumliche Eigenschaften der Ressource.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe von geografischen
         Schlagwörtern. Einfache literale Werte ohne http-URI werden in dcterms:spatial angegeben.
-        Für Kombinationen aus einem literalem Wert und einem http-URI, der auf ein kontrolliertes
-        Vokabular verweist, ist die Modellierung mit blindem Kindknoten dcterms:Location zu
-        verwenden. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die
-        Angabe des dazugehörigen literalen Werts in dessen Kindelement
-        skos:prefLabel.</xs:documentation>
+        Für Kombinationen aus einem literalen Wert und einem http-URI, die auf ein kontrolliertes
+        Vokabular verweisen, ist die Modellierung mit dem typisierten Knoten dcterms:Location als
+        Wert von dcterms:spatial zu verwenden. Die Angabe des http-URIs erfolgt im
+        rdf:about-Attribut des typisierten Knotens, die Angabe des dazugehörigen literalen Werts in
+        dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -248,17 +252,16 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- Laut Schema kann hier auch eine Zeitspanne mit Anfang und Ende stehen. Auch Zahlenwertr. So gewünscht? Dann ergänzen in Definition oder Schema anpassen. -->
   <xs:element name="temporal">
     <xs:annotation>
       <xs:documentation xml:lang="en">Temporal characteristics of the resource.</xs:documentation>
       <xs:documentation xml:lang="de">Zeitliche Eigenschaften der Ressource.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Einfache literale Werte ohne
-        http-URI werden in dcterms:temporal angegeben. Für Kombinationen aus einem literalem Wert
-        und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit
-        blindem Kindknoten skos:Concept zu verwenden. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelemnt skos:prefLabel.</xs:documentation>
+        http-URI werden in dcterms:temporal angegeben. Für Kombinationen aus einem literalen Wert
+        und einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die Modellierung mit
+        dem typisierten Knoten dcterms:PeriodOfTime als Wert von dcterms:temporal zu verwenden. Die
+        Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -279,11 +282,11 @@
         act.</xs:documentation>
       <xs:documentation xml:lang="de">Eine Ressource, die handelt oder die Macht hat, zu
         handeln.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Modellierung eines blinden
-        Knotens der auf einen Akteur verweist, der mit einem http-URI und einem literalen Wert aus
-        einem kontrollierten Vokabular identifiziert werden kann. Die Angabe des http-URIs erfolgt
-        im rdf:about-Attribut von dcterms:Agent, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelement skos:prefLabel.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines
+        typisierten Knotens, der auf eine Ressource vom Typ dcterms:Agent verweist, die mit einem
+        http-URI und einem literalen Wert aus einem kontrollierten Vokabular identifiziert werden
+        kann. Die Angabe des http-URIs erfolgt im rdf:about-Attribut von dcterms:Agent, die Angabe
+        des dazugehörigen literalen Werts in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -298,11 +301,12 @@
       <xs:documentation xml:lang="en">A spatial region or named place.</xs:documentation>
       <xs:documentation xml:lang="de">Eine räumliche Region oder ein benannter
         Ort.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Modellierung von blinden Knoten
-        für die Angabe von geografischen Regionen oder Orten, die mit einem http-URI und einem
-        literalen Wert aus einem kontrollierten Vokabular identifiziert werden können. Die Angabe
-        des http-URIs erfolgt im rdf:about-Attribut von dcterms:Location, die Angabe des
-        dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines
+        typisierten Knotens, der auf eine Ressource vom Typ dcterms:Location verweist, die mit einem
+        http-URI und einem literalen Wert aus einem kontrollierten Vokabular identifiziert werden
+        kann. Die Angabe des http-URIs erfolgt im rdf:about-Attribut von dcterms:Location, die
+        Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -318,13 +322,14 @@
         end dates.</xs:documentation>
       <xs:documentation xml:lang="de">Ein Zeitintervall, das durch sein Start- und Enddatum benannt
         oder definiert ist.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Modellierung eines blinden
-        Knotens für die Angabe von Zeitintervallen, die entweder mit einem http-URI und einem
-        literalen Wert aus einem kontrollierten Vokabular identifiziert werden können oder durch ein
-        Start- und Enddatum definiert sind. Die Angabe des http-URIs erfolgt im rdf:about-Attribut
-        von dcterms:PeriodOfTime, die Angabe des dazugehörigen literalen Werts in dessen Kindelement
-        skos:prefLabel. Alternativ werden Start- und Enddatum in den Kindelementen edm:begin und
-        edm:end angegeben.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines
+        typisierten Knotens, der auf eine Ressource vom Typ dcterms:PeriodOfTime verweist, die
+        entweder mit einem http-URI und einem literalen Wert aus einem kontrollierten Vokabular
+        identifiziert werden kann oder durch ein Start- und Enddatum definiert ist (=blinder
+        Knoten). Die Angabe des http-URIs erfolgt im rdf:about-Attribut von dcterms:PeriodOfTime,
+        die Angabe des dazugehörigen literalen Werts in dessen Property skos:prefLabel. Alternativ
+        werden Start- und Enddatum in den Properties edm:begin und edm:end
+        angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice>
@@ -346,11 +351,11 @@
       <xs:documentation xml:lang="de">Änderungen in Bezug auf die Eigentumsverhältnisse und die
         Aufbewahrung einer Ressource seit ihrer Erstellung, die für ihre Authentizität, Integrität
         und Interpretation von Bedeutung sind.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: In dcterms:provenance erfolgt
-        die Angabe von Institutionen, Organisationen und Personen. Für allgemeine Informationen im
-        Kontext der Provenienz soll die Modellieung mit blindem Kindknoten
-        dcterms:ProvenanceStatement gewählt werden, wobei die Informationen in dessen Kindelement
-        rdf:value angegeben werden sollen.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Während in dcterms:provenance
+        die Angabe von Institutionen, Organisationen und Personen erfolgt, soll für allgemeine
+        Informationen im Kontext der Provenienz die Modellierung mit einem blindem Knoten mit
+        Typzuweisung dcterms:ProvenanceStatement gewählt werden, wobei die Informationen in dessen
+        Property rdf:value angegeben werden sollen.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>

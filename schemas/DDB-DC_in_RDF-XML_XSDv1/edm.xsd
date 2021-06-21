@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://www.europeana.eu/schemas/edm/"
@@ -29,7 +29,7 @@
       <xs:documentation xml:lang="de">Diese Property kennzeichnet das Startdatum eines
         Zeitraumes.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Startdatums eines
-        Zeitraumes unterhalb des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
+        Zeitraumes als Property des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
     </xs:annotation>
   </xs:element>
 
@@ -44,11 +44,11 @@
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Die geografische Lage und/oder
         der Name des Repositoriums, Gebäudes, Standorts oder einer anderen Einheit, innerhalb deren
         Bereichsgrenze sich die Ressource derzeit befindet. Einfache literale Werte ohne http-URI
-        werden in edm:currentLocation angegeben. Für Kombinationen aus einem literalem Wert und
-        einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit
-        blindem Kindknoten dcterms:Location zu verwenden. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelement skos:prefLabel.</xs:documentation>
+        werden in edm:currentLocation angegeben. Für Kombinationen aus einem literalen Wert und
+        einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die Modellierung mit dem
+        typisierten Knoten dcterms:Location zu verwenden. Die Angabe des http-URIs erfolgt im
+        rdf:about-Attribut des typisierten Knotens, die Angabe des dazugehörigen literalen Werts in
+        dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -70,24 +70,22 @@
       <xs:documentation xml:lang="de">Diese Property kennzeichnet das Enddatum eines
         Zeitraums.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Enddatums eines
-        Zeitraumes unterhalb des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
+        Zeitraumes als Property des blinden Knotes dcterms:PeriodOfTime.</xs:documentation>
     </xs:annotation>
   </xs:element>
 
-<!-- Prüfen, ob im Kontext der DDB edm:hasView nur für direkte Links zum digitalen Objekt verwendet werden soll, um Zuodnungsprobleme beim Mapping zu vermeiden.-->
   <xs:element name="hasView">
     <xs:annotation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger URL-Verweis auf
-        das digitale Objekt. edm:hasView sollte nur verwendet werden, wenn es mehrere digitale
-        Repräsentationen des beschriebenen Objektes gibt und eine (oder beide) der obligatorischen
-        Properties edm:isShownAt oder edm:isShownBy bereits verwendet wurden. Kann der digitalen
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: edm:hasView sollte nur
+        verwendet werden, wenn es mehrere direkte Links auf digitale Repräsentationen des
+        beschriebenen Objektes gibt und edm:isShownBy bereits verwendet wurde. Kann der digitalen
         Repräsentation kein Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die
         Angabe des URL im rdf:resource-Attribut der Property edm:hasView. Kann dagegen der digitalen
         Repräsentation ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die
-        Modellierung mit dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die
-        digitale Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe
-        des Rechtehinweises im rdf:resource-Attribut von dessen Kindelement
-        dcterms:licence.</xs:documentation>
+        Modellierung mit dem typisierten Knoten edm:WebResource als Wert von edm:hasView gewählt.
+        Der URL-Verweis auf die digitale Repräsentation erfolgt dann im rdf:about-Attribut des
+        typisierten Knotens, die Angabe des Rechtehinweises im rdf:resource-Attribut von dessen
+        Property dcterms:licence.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -109,11 +107,11 @@
         Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die Angabe des URL im
         rdf:resource-Attribut der Property edm:isShownAt. Kann dagegen der digitalen Repräsentation
         ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die Modellierung mit
-        dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die digitale
-        Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
-        Rechtehinweises im rdf:resource-Azttribut von dessen Kindelement dcterms:licence. Der
-        Datensatz muss entweder eine Instanz von edm:isShownAt oder eine Instanz von edm:isShownBy
-        enthalten.</xs:documentation>
+        dem typisierten Knoten edm:WebResource als Wert von edm:isShownAt gewählt. Der URL-Verweis
+        auf die digitale Repräsentation erfolgt dann im rdf:about-Attribut des typisierten Knotens,
+        die Angabe des Rechtehinweises im rdf:resource-Attribut von dessen Property dcterms:licence.
+        Der Datensatz muss entweder eine Instanz von edm:isShownAt oder eine Instanz von
+        edm:isShownBy enthalten.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -129,16 +127,16 @@
         provider’s web site in the best available resolution/quality.</xs:documentation>
       <xs:documentation xml:lang="de">Ein eindeutiger URL-Verweis auf das digitale Objekt auf der
         Website des Anbieters in der besten verfügbaren Auflösung/Qualität.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger URL-Verweis auf
-        eine digitale Repräsentation des beschriebenen Objektes auf der Website des Anbieters in der
-        besten verfügbaren Auflösung/Qualität. Kann der digitalen Repräsentation kein Rechtehinweis
-        oder keine Lizenz eindeutig zugeordnet werden, erfolgt die Angabe des URL im
-        rdf:resource-Attribut der Property edm:isShownBy. Kann dagegen der digitalen Repräsentation
-        ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die Modellierung mit
-        dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf die digitale
-        Repräsentation erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
-        Rechtehinweises im rdf:resource-Attribut von dessen Kindelement dcterms:licence. Der
-        Datensatz muss entweder eine Instanz von edm:isShownAt oder eine Instanz von edm:isShownBy
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein direkter URL-Verweis auf
+        eine digitale Repräsentation des beschriebenen Objektes in der besten verfügbaren
+        Auflösung/Qualität. Kann der digitalen Repräsentation kein Rechtehinweis oder keine Lizenz
+        eindeutig zugeordnet werden, erfolgt die Angabe des URL im rdf:resource-Attribut der
+        Property edm:isShownBy. Kann dagegen der digitalen Repräsentation ein Rechtehinweis oder
+        eine Lizenz eindeutig zugeordnet werden, wird die Modellierung mit dem typisisierten Knoten
+        edm:WebResource als Wert von edm:isShownBy gewählt. Der URL-Verweis auf die digitale
+        Repräsentation erfolgt dann im rdf:about-Attribut des typisierten Knotens, die Angabe des
+        Rechtehinweises im rdf:resource-Attribut von dessen Property dcterms:licence. Der Datensatz
+        muss entweder eine Instanz von edm:isShownAt oder eine Instanz von edm:isShownBy
         enthalten.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
@@ -165,9 +163,9 @@
         (Vorschau)Bild kein Rechtehinweis oder keine Lizenz eindeutig zugeordnet werden, erfolgt die
         Angabe des URL im rdf:resource-Attribut der Property edm:object. Kann dagegen dem
         (Vorschau)Bild ein Rechtehinweis oder eine Lizenz eindeutig zugeordnet werden, wird die
-        Modellierung mit dem blinden Kindknoten edm:WebResource gewählt. Der URL-Verweis auf das
-        (Vorschau)Bild erfolgt dann im rdf:about-Attribut des blinden Knotens, die Angabe des
-        Rechtehinweises im rdf:resource-Attribut von dessen Kindelement
+        Modellierung mit dem typisierten Knoten edm:WebResource als Wert von edm:object gewählt. Der
+        URL-Verweis auf das (Vorschau)Bild erfolgt dann im rdf:about-Attribut des typisierten
+        Knotens, die Angabe des Rechtehinweises im rdf:resource-Attribut von dessen Property
         dcterms:licence.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
@@ -185,12 +183,13 @@
       <xs:documentation xml:lang="de">Informationsressourcen, die mindestens eine Webrepräsentation
         und mindestens einen URI haben.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Wird verwendet zur Modellierung
-        eines blinden Knoten, wenn für eine digitale Repäsentation eines beschriebenen Objektes
-        zusätzlich zum URL-Verweis auch ein eindeutig zuordenbare/r http-URI eines Rechtehinweises
-        oder einer Lizenz geliefert werden kann. Die Angabe des URL-Verweises auf die digitale
-        Repräsentation erfolgt im rdf:about-Attribut von edm:WebResource, die Angabe des http-URI
-        des/der dazugehörigen Rechtehinweises oder Lizenz im rdf:resource-Attribut von dessen
-        Kindelement dcterms:licence.</xs:documentation>
+        eines typisierten Knotens, der auf eine Ressource vom Typ edm:WebResource verweist, wenn für
+        eine digitale Repäsentation eines beschriebenen Objektes zusätzlich zum URL-Verweis auch ein
+        eindeutig zuordenbarer http-URI eines Rechtehinweises oder einer Lizenz geliefert werden
+        kann. Die Angabe des URL-Verweises auf die digitale Repräsentation erfolgt im
+        rdf:about-Attribut von edm:WebResource, die Angabe des http-URI des dazugehörigen
+        Rechtehinweises oder der Lizenz im rdf:resource-Attribut von dessen Property
+        dcterms:licence.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>

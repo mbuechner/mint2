@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://id.loc.gov/ontologies/bibframe/#"
@@ -26,8 +26,9 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">Digital Object Identifier.</xs:documentation>
       <xs:documentation xml:lang="de">Digital Object Identifier.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Spezifizierung eines Identifikators vom Typ "DOI".</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Doi als Wert von dc:identifier. Der Wert des Identifikators
+        wird in der Property rdf:value des blinden Knotens angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -42,8 +43,9 @@
         by the Corporation for National Research Initiatives.</xs:documentation>
       <xs:documentation xml:lang="de">Eindeutiger und dauerhafter Bezeichner für digitale Objekte,
         entwickelt von der Corporation for National Research Initiatives.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Spezifizierung eines Identifikators vom Typ "Handle".</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Hdl als Wert von dc:identifier. Der Wert des Identifikators
+        wird in der Property rdf:value des blinden Knotens angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -58,8 +60,10 @@
         URI or an ISBN.</xs:documentation>
       <xs:documentation xml:lang="de">Token oder Name, der mit einer Ressource verbunden ist, z. B.
         ein URI oder eine ISBN.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Angabe von Identifikatoren ohne speziellen Typ.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Identifier als Wert von dc:identifier. Der Wert des
+        Identifikators wird in der Property rdf:value des blinden Knotens
+        angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -72,8 +76,9 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">International Standard Book Number.</xs:documentation>
       <xs:documentation xml:lang="de">Internationale Standardbuchnummer.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Spezifizierung eines Identifikators vom Typ "ISBN".</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Isbn als Wert von dc:identifier. Der Wert des Identifikators
+        wird in der Property rdf:value des blinden Knotens angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -87,8 +92,9 @@
       <xs:documentation xml:lang="en">International Standard Serial Number.</xs:documentation>
       <xs:documentation xml:lang="de">Internationale Standardnummer für fortlaufende
         Sammelwerke.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Spezifizierung eines Identifikators vom Typ "ISSN".</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Issn als Wert von dc:identifier. Der Wert des Identifikators
+        wird in der Property rdf:value des blinden Knotens angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -101,8 +107,9 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">Uniform Resource Number.</xs:documentation>
       <xs:documentation xml:lang="de">Einheitlicher Ressourcenname.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Als blinder Kindknoten von
-        dc:identifer zur Spezifizierung eines Identifikators vom Typ "URN".</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zur Modellierung eines blinden
+        Knotens mit der Typzuweisung bf:Urn als Wert von dc:identifier. Der Wert des Identifikators
+        wird in der Property rdf:value des blinden Knotens angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>

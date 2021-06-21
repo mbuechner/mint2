@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://www.w3.org/XML/1998/namespace"

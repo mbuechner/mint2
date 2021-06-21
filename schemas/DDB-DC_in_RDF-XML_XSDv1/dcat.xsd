@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://www.w3.org/ns/dcat#"
@@ -28,13 +28,11 @@
         single dataset or data service.</xs:documentation>
       <xs:documentation xml:lang="de">Ein Datensatz in einem Datenkatalog, der die Registrierung
         eines einzelnen Datensatzes oder Datendienstes beschreibt.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Dient zur Erfassung von
-        Metadaten über den Objektdatensatz in den Kindelementen dc:identifier (Identifikator des
-        Objektes, identisch zum Identifikator in rdf:RDF/rdf:Description/@rdf:about), dc:creator
-        (Identifikation des verantwortlichen Herstellers des Objektdatensatzes mittels ProviderID
-        aus der Registrierung) und dcterms:licence (Angabe des Rechtsstatus der Metadaten mittels
-        http-URI, der auf einen Rechthinweis aus einem kontrollierten Vokabular verweist. Der URI
-        wird im Attribut rdf:resource angegeben).</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Für die Modellierung eines
+        blinden Knoten mit Typ-Zuweisung dcat:CatalogRecord als Wert von dcterms:isReferencedBy. In
+        den dem blinden Knoten zugeordneten Properties dc:identifier, dc:creator und dcterms:licence
+        werden die Metadaten über den Objektdatensatz (administrative Metadaten)
+        erfasst.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>

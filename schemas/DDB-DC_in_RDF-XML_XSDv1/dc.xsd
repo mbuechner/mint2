@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://purl.org/dc/elements/1.1/"
@@ -29,15 +29,16 @@
       <xs:documentation xml:lang="de">Eine Entität, die für die Herstellung der Ressource
         hauptverantwortlich ist.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: dc:creator wird sowohl für
-        verantwortliche Hersteller des beschriebenen Objektes (Pfad
+        verantwortliche Hersteller des beschriebenen Objektes (Pfad:
         rdf:RDF/rdf:Description/dc:creator) als auch für verantwortliche Hersteller des
         Objektdatensatzes (Pfad:
         rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:creator) verwendet.
         Einfache literale Werte ohne http-URI werden in dc:creator angegeben. Für Kombinationen aus
-        einem literalem Wert und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist
-        die Modellierung mit blindem Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs
-        erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen
-        Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+        einem literalen Wert und einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist
+        die Modellierung mit dem typisierten Knoten dcterms:Agent als Wert von dc:creator zu
+        verwenden. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens,
+        die Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -60,11 +61,11 @@
         ist.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe von Akteuren, die für
         Beiträge zum beschriebenen Objekt verantwortlich sind. Einfache literale Werte ohne http-URI
-        werden in dc:contributor angegeben.Für Kombinationen aus einem literalem Wert und einem
-        http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit blindem
-        Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelement skos:prefLabel.</xs:documentation>
+        werden in dc:contributor angegeben. Für Kombinationen aus einem literalen Wert und einem
+        http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die Modellierung mit dem
+        typisierten Knoten dcterms:Agent als Wert von dc:contributor zu verwenden. Die Angabe des
+        http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -88,10 +89,11 @@
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Zeitpunkt oder Zeitspanne, die
         mit einem Ereignis im Lebenszyklus des beschriebenen Objektes verknüpft ist. Der Wert soll
         konform zu ISO 8601 sein. Wenn die Zeitspanne nicht konform zu ISO 8601 dargestellt werden
-        kann, sollte die Modellierung mit blindem Kindknoten dcterms:PeriodOfTime gewählt werden.
-        Start- und Enddatum werden in dessen Kindelementen edm:begin und edm:end angegeben. Für das
-        Herstellungsdatum des beschriebenen Objektes sollte bevorzugt dcterms:created verwendet
-        werden, für das Veröffentlichungsdatum dcterms:issued.</xs:documentation>
+        kann, sollte die Modellierung mit einem blinden Knoten als Wert von dc:date gewählt werden,
+        der als dcterms:PeriodOfTime typisiert wird. Start- und Enddatum werden in dessen Properties
+        edm:begin und edm:end angegeben. Für das Herstellungsdatum des beschriebenen Objektes sollte
+        bevorzugt die Property dcterms:created verwendet werden, für das Veröffentlichungsdatum
+        dcterms:issued.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -115,20 +117,6 @@
     <xs:complexType mixed="true">
       <xs:attribute ref="xml:lang" use="optional"/>
     </xs:complexType>
-  </xs:element>
-
-  <xs:element name="language">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">A language of the resource.</xs:documentation>
-      <xs:documentation xml:lang="de">Sprache der Ressource.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Sprache des beschriebenen
-        Objektes. Der Wert muss konform zu ISO 639-2 oder ISO 639-3 sein.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleType>
-      <xs:restriction base="xs:token">
-        <xs:pattern value="[aA-zZ]{2,3}"/>
-      </xs:restriction>
-    </xs:simpleType>
   </xs:element>
 
   <!-- Die Werteliste basiert auf der Definition des DDB-Pflichtelements Mediendatei, siehe https://wiki.dnb.de/display/DDBSERVICE/Mediendatei -->
@@ -167,10 +155,12 @@
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Ein eindeutiger Verweis auf das
         beschriebene Objekt innerhalb eines bestimmten Kontexts. Zur Differenzierung verschiedener
         Identifikatoren-Typen (Identifikator des Datensatzes, DOI, ISBN, URN etc.) wird eine
-        Modellierung mit blindem Kindknoten aus dem Bibframe-Namensraum gewählt. Http-URIs als
-        Identifikatoren werden in dc:identifer im Attribut rdf:resource angegeben, ohne dass ein
-        blinder Knoten modelliert wird. Der Identifikator für den Datenlieferanten wird in der
-        Property dc:creator unterhalb von dcat:CatalogRecord angegeben.</xs:documentation>
+        Modellierung mit einem blindem Knoten als Wert von dc:identifier gewählt, der mit einer
+        Klasse aus dem Bibframe-Namensraum typisiert wird. Http-URIs als Identifikatoren werden in
+        dc:identifer im Attribut rdf:resource angegeben, ohne dass ein blinder Knoten modelliert
+        wird. Der Identifikator für den Datenlieferanten wird in der Property dc:creator (Pfad:
+        rdf:RDF/rdf:Description/dcterms:isReferencedBy/dcat:CatalogRecord/dc:creator)
+        angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:choice>
@@ -190,6 +180,20 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="language">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A language of the resource.</xs:documentation>
+      <xs:documentation xml:lang="de">Sprache der Ressource.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Sprache des beschriebenen
+        Objektes. Der Wert muss konform zu ISO 639-2 oder ISO 639-3 sein.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:pattern value="[aA-zZ]{2,3}"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
   <xs:element name="publisher">
     <xs:annotation>
       <xs:documentation xml:lang="en">An entity responsible for making the resource
@@ -198,11 +202,11 @@
         verantwortlich ist.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe von Akteuren, die für
         die Bereitstellung des beschriebenen Objektes verantwortlich sind. Einfache literale Werte
-        ohne http-URI werden in dc:publisher angegeben. Für Kombinationen aus einem literalem Wert
-        und einem http-URI, der auf ein kontrolliertes Vokabular verweist, ist die Modellierung mit
-        blindem Kindknoten dcterms:Agent zu verwenden. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut des blinden Knotens, die Angabe des dazugehörigen literalen Werts in
-        dessen Kindelement skos:prefLabel.</xs:documentation>
+        ohne http-URI werden in dc:publisher angegeben. Für Kombinationen aus einem literalen Wert
+        und einem http-URI, die auf ein kontrolliertes Vokabular verweisen, ist die Modellierung mit
+        dem typisierten Knoten dcterms:Agent als Wert von dc:publisher zu verwenden. Die Angabe des
+        http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens, die Angabe des
+        dazugehörigen literalen Werts in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>
@@ -266,11 +270,12 @@
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Für Sachschlagwörter und
         Akteure als Thema des beschriebenen Objektes. Für geografische Gebiete als Thema ist
         bevorzugt dcterms:spatial zu verwenden. Einfache literale Werte ohne http-URI werden in
-        dc:subject angegeben. Für Kombinationen aus einem literalem Wert und einem http-URI, der auf
-        ein kontrolliertes Vokabular verweist, ist die Modellierung mit blindem Kindknoten zu
-        verwenden (skos:Concept für Sachschlagwörter bzw. dcterms:Agent für Akteure als Thema). Die
-        Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des
-        dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+        dc:subject angegeben. Für Kombinationen aus einem literalen Wert und einem http-URI, die auf
+        ein kontrolliertes Vokabular verweisen, ist die Modellierung mit einem typisierten Knoten als
+        Wert von dc:subject zu verwenden (skos:Concept für Sachschlagwörter bzw. dcterms:Agent für
+        Akteure als Thema). Die Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten
+        Knotens, die Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:choice minOccurs="0" maxOccurs="1">
@@ -305,10 +310,11 @@
       <xs:documentation xml:lang="de">Die Art oder das Genre der Ressource.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Objekttyps des
         beschriebenen Objektes. Einfache literale Werte ohne http-URI werden in dc:type angegeben.
-        Für Kombinationen aus einem literalem Wert und einem http-URI, der auf ein kontrolliertes
-        Vokabular verweist, ist die Modellierung mit blindem Kindknoten skos:Concept zu verwenden.
-        Die Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe des
-        dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+        Für Kombinationen aus einem literalen Wert und einem http-URI, die auf ein kontrolliertes
+        Vokabular verweisen, ist die Modellierung mit dem typisierten Knoten skos:Concept als Wert
+        von dc:type zu verwenden. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des
+        typisierten Knotens, die Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:sequence>

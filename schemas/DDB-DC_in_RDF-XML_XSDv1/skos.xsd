@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://www.w3.org/2004/02/skos/core#"
@@ -25,11 +25,12 @@
   <xs:element name="prefLabel">
     <xs:annotation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Vorzugsbezeichung eines
-        Begriffs oder einer Entität. Wird verwendet im Rahmen der Modellierung von blinden Knoten in
-        Fällen, in denen ein Begriff oder eine Entität mit einem http-URI, der auf ein
+        Begriffs oder einer Entität. Wird verwendet im Rahmen der Modellierung von typisierten
+        Knoten in Fällen, in denen ein Begriff oder eine Entität mit einem http-URI, der auf ein
         kontrolliertes Vokabular verweist, und einem dazugehörigen literalen Wert identifiziert
-        wird. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des blinden Knotens, die Angabe
-        des dazugehörigen literalen Werts in dessen Kindelement skos:prefLabel.</xs:documentation>
+        wird. Die Angabe des http-URIs erfolgt im rdf:about-Attribut des typisierten Knotens, die
+        Angabe des dazugehörigen literalen Werts in dessen Property
+        skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
       <xs:attribute ref="xml:lang" use="optional"/>
@@ -43,11 +44,11 @@
       <xs:documentation xml:lang="de">Die Klasse skos:Concept ist die Klasse der SKOS-Konzepte. Ein
         SKOS-Konzept kann als eine Idee oder ein Begriff betrachtet werden; eine
         Gedankeneinheit.</xs:documentation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Modellierung von blinden Knoten
-        in Fällen, in denen ein Begriff oder eine Entität mit einem http-URI, der auf ein
-        kontrolliertes Vokabular verweist, identifiziert wird. Die Angabe des http-URIs erfolgt im
-        rdf:about-Attribut von skos:Concept, die Angabe des dazugehörigen literalen Werts in dessen
-        Kindelement skos:prefLabel.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im kontext der DDB: Für die Modellierung von
+        typisierten Knoten in Fällen, in denen ein Begriff oder eine Entität mit einem http-URI, der
+        auf ein kontrolliertes Vokabular verweist, identifiziert wird. Die Angabe des http-URIs
+        erfolgt im rdf:about-Attribut von skos:Concept, die Angabe des dazugehörigen literalen Werts
+        in dessen Property skos:prefLabel.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>

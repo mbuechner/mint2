@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  
-      DDB-DC in RDF/XML Version 1.0 (XSD 1.1)
+      DDB-DC in RDF/XML Version 1.1 (XSD 1.1)
       Autorin: Eleonore Emsbach
-      Version: 1.0
-      Datum: 20210409 
+      Version: 1.1
+      Datum: 2021-06-15
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -75,7 +75,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="edm:hasView"/>
         <xs:element minOccurs="0" maxOccurs="1" ref="edm:isShownAt"/>
         <xs:element minOccurs="0" maxOccurs="1" ref="edm:isShownBy"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="edm:object"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="edm:object"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="marcrel:fnd"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="marcrel:pup"/>
         <xs:element ref="rdf:type"/>
@@ -95,7 +95,7 @@
         ist.</xs:documentation>
       <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Angabe des Medientyps des
         beschriebenen Objektes. Der Wert muss ein http-URI sein, der auf einen Begriff aus dem DCMI
-        Type Vocabular verweist. Der http-URI wird im Attribut rdf:resource
+        Type Vokabular verweist. Der http-URI wird im Attribut rdf:resource
         angegeben.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
@@ -103,17 +103,13 @@
     </xs:complexType>
   </xs:element>
 
-<!-- URL als Wert v. rdf:value muss noch geklärt werden -->
   <xs:element name="value">
     <xs:annotation>
-      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Wird als Kindelement für blinde
-        Knoten verwendet, wenn der Inhalt sich um einen strukturierten Wert und nicht um ein Label
-        handelt.</xs:documentation>
+      <xs:documentation xml:lang="de">Verwendung im Kontext der DDB: Wird als Property von blinden
+        bzw. typisierten Knoten verwendet, wenn der Wert sich um einen strukturierten Wert und nicht
+        um ein Label handelt. URLs als Werte für Identifier werden wie literale Werte
+        behandelt.</xs:documentation>
     </xs:annotation>
-    <xs:complexType mixed="true">
-      <!-- Attribut prüfen-->
-      <xs:attribute ref="rdf:resource"/>
-    </xs:complexType>
   </xs:element>
 
   <!-- Wert in rdf:about in rdf:Description ist u.U. kein http-URI. Deshalb keine Abprüfung auf http-URIs-->

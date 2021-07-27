@@ -1,0 +1,13 @@
+diff --git a/WEB-INF/jsp/profile.jsp b/WEB-INF/jsp/profile.jsp
+index 6150d33..0e84b84 100644
+--- a/WEB-INF/jsp/profile.jsp
++++ b/WEB-INF/jsp/profile.jsp
+@@ -1,7 +1,7 @@
+ <%@ include file="_include.jsp"%>
+ <%@ page language="java" errorPage="error.jsp"%>
+ <%@page pageEncoding="UTF-8"%>
+-<%@page import="gr.ntua.ivml.mint.persistent.Organization;"%>
++<%@page import="gr.ntua.ivml.mint.persistent.Organization"%>
+ 
+ <%  String uaction=(String)request.getAttribute("uaction");
+    if(uaction==null){uaction="";}

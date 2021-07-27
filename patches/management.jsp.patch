@@ -1,0 +1,11 @@
+diff --git a/WEB-INF/jsp/management.jsp b/WEB-INF/jsp/management.jsp
+index a57fb54..fec7d07 100644
+--- a/WEB-INF/jsp/management.jsp
++++ b/WEB-INF/jsp/management.jsp
+@@ -1,5 +1,5 @@
+ <%@ include file="top.jsp"%>
+-<%@page import="gr.ntua.ivml.mint.persistent.Organization;"%>
++<%@page import="gr.ntua.ivml.mint.persistent.Organization"%>
+ <script type="text/javascript">
+ <%int count=1;
+ if( user.hasRight(User.SUPER_USER)){
